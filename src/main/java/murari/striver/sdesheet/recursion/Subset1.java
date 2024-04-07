@@ -7,18 +7,21 @@ public class Subset1 {
 
     // Depth-first search function to generate subsets
     public void dfs(int i, ArrayList<Integer> curr, List<List<Integer>> result, int[] nums) {
-        // If we have traversed all elements in nums, add the current subset to the result
+        // base case
         if (i >= nums.length) {
             result.add(new ArrayList<Integer>(curr));
             return;
         }
 
-        // Include nums[i] in the current subset
+        // recursive case
+        // choice 1: include the current element
         curr.add(nums[i]);
         dfs(i + 1, curr, result, nums); // Recur with the next index
 
-        // Exclude nums[i] from the current subset
+
+        // backtracking step
         curr.remove(curr.size() - 1);
+        // choice 2: exclude the current element
         dfs(i + 1, curr, result, nums); // Recur with the next index
 
         // Illustration:
