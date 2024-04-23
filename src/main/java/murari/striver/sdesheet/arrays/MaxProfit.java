@@ -7,9 +7,9 @@ public class MaxProfit {
         int maxProfit=0;
         int minPrice=Integer.MAX_VALUE;
 
-        for(int i=0;i<prices.length;i++){
-            minPrice=Math.min(prices[i],minPrice);
-            maxProfit=Math.max(prices[i]-minPrice,maxProfit);
+        for (int price : prices) {
+            minPrice = Math.min(price, minPrice);
+            maxProfit = Math.max(price - minPrice, maxProfit);
         }
         return maxProfit;
     }

@@ -6,20 +6,18 @@ import java.util.List;
 public class MajorityElementII {
     public static List<Integer> majorityElement(int[] nums) {
         int majority1=-1,majority2=-1,count1=0,count2=0;
-        for(int i=0;i<nums.length;i++){
-            if(majority1==nums[i]){
+        for (int j : nums) {
+            if (majority1 == j) {
                 count1++;
-            } else if (majority2==nums[i]) {
+            } else if (majority2 == j) {
                 count2++;
-            }
-            else if(count1==0){
-                majority1=nums[i];
+            } else if (count1 == 0) {
+                majority1 = j;
                 count1++;
-            } else if (count2==0) {
-                majority2=nums[i];
+            } else if (count2 == 0) {
+                majority2 = j;
                 count2++;
-            }
-            else {
+            } else {
                 count1--;
                 count2--;
             }

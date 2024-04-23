@@ -12,7 +12,7 @@ public class NthRoot {
         return answer;
     }
 
-    public static int NthRoot(int nth, int number){
+    public static int nthRoot(int nth, int number){
         if(nth<=0 || number<0)
             return -1;
 
@@ -34,7 +34,7 @@ public class NthRoot {
         int n = 3;
         int m = 29;
 //        System.out.println(power(2,3));
-        int nthRoot = NthRoot(n, m);
+        int nthRoot = nthRoot(n, m);
         if (nthRoot != -1) {
             System.out.println("The " + n + "th root of " + m + " is: " + nthRoot);
         } else {
