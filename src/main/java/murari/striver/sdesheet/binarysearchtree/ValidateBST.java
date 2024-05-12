@@ -15,8 +15,6 @@ public class ValidateBST {
         boolean left = isValid(root.left, min, root.val);
         boolean right = isValid(root.right, root.val, max);
 
-        if (left && right) return true;
-
-        return false;
+        return left && right;
     }
 }
