@@ -7,7 +7,7 @@ public class ThreeSum {
     public static void main(String[] args) {
         int[] nums = {-1, 0, 1, 2, -1, -4};
 
-        List<List<Integer>> triplets = findTriplets(nums);
+        List<List<Integer>> triplets = findTripletsTwoPointers(nums);
 
         // Printing the triplets
         System.out.println("Triplets with sum 0:");
@@ -35,6 +35,7 @@ public class ThreeSum {
                     // Found a triplet with sum 0
                     List<Integer> temp = Arrays.asList(nums[i], nums[j], third);
                     Collections.sort(temp); // Sort the triplet to handle duplicates
+                    temp.sort(Integer::compareTo);
                     tripletSet.add(temp);
                 }
                 hashSet.add(nums[j]);
@@ -43,6 +44,31 @@ public class ThreeSum {
 
         // Convert set to list and return
         return new ArrayList<>(tripletSet);
+    }
+
+    public static List<List<Integer>> findTripletsTwoPointers(int[] nums) {
+        Set<List<Integer>> result= new HashSet<>();
+        Arrays.sort(nums);
+        for(int i=0; i<nums.length; i++){
+            int j= i+1;
+            int k= nums.length-1;
+
+            while( j< k){
+                int sum= nums[i]+ nums[j]+ nums[k];
+
+                if(sum>0){
+                    k--;
+                } else if (sum<0){
+                    j++;
+                } else {
+                    List<Integer> tempResult= Arrays.asList(nums[i], nums[j], nums[k]);
+                    result.add(tempResult);
+                    j++;
+                }
+            }
+        }
+
+        return new ArrayList<>(result);
     }
 }
 
