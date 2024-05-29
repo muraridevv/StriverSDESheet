@@ -32,7 +32,7 @@ public class LongestIncreasingSubsequence {
 
     //Using dp
     public int lengthOfLIS(int[] nums) {
-        if (nums == null || nums.length == 01) {
+        if (nums == null || nums.length == 0) {
             return 0;
         }
         int[] dp= new int[nums.length];
