@@ -34,8 +34,8 @@ public class SortColors {
     }
 
     public static void main(String[] args) {
-//        int [] list=new int[]{2,0,2,1,1,0};
-        int [] list=new int[]{0,1,0};
+        int [] list=new int[]{2,0,2,1,1,0};
+//        int [] list=new int[]{0,1,0};
         SortColors obj1=new SortColors();
         obj1.sortColors(list);
         Arrays.stream(list).forEach(System.out::println);
