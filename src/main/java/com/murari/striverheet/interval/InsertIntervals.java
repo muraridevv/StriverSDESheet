@@ -7,30 +7,29 @@ import java.util.List;
 public class InsertIntervals {
 
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        List<int []> mergedInterval= new ArrayList<>();
+        List<int[]> mergedInterval= new ArrayList<>();
 
-        for(int i=0; i< intervals.length; i++){
-            //Case 1: Non-overlapping, current interval is completely before new interval
-            if(intervals[i][1]< newInterval[0])
-                mergedInterval.add(intervals[i]);
+        for(int[] interval: intervals){
+            //Case 1: interval completely smaller than new interval
+            if(interval[1]<newInterval[0])
+                mergedInterval.add(interval);
 
-            //Case 2: Non-overlapping, current interval is completely after new interval
-            else if(intervals[i][0]> newInterval[1]) {
+            //Case 2: interval completely greater than new interval
+            else if(interval[0]>newInterval[1]){
                 mergedInterval.add(newInterval);
-                newInterval= intervals[i];
+                newInterval= interval;
             }
-            // Case 3: Overlapping
-            else {
-                newInterval[0]= Math.min(newInterval[0],intervals[i][0]);
-                newInterval[1]= Math.max(newInterval[1], intervals[i][1]);
+
+            //Case 3: overlapping interval
+            else{
+                newInterval[0]= Math.min(newInterval[0],interval[0]);
+                newInterval[1]= Math.max(newInterval[1],interval[1]);
             }
         }
 
         mergedInterval.add(newInterval);
+
         return mergedInterval.toArray(new int[mergedInterval.size()][]);
-
-
-
     }
 
     public int[][] insertUsingWhile(int[][] intervals, int[] newInterval) {
