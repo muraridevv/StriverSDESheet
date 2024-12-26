@@ -8,6 +8,33 @@ public class InsertIntervals {
 
     public int[][] insert(int[][] intervals, int[] newInterval) {
         List<int []> mergedInterval= new ArrayList<>();
+
+        for(int i=0; i< intervals.length; i++){
+            //Case 1: Non-overlapping, current interval is completely before new interval
+            if(intervals[i][1]< newInterval[0])
+                mergedInterval.add(intervals[i]);
+
+            //Case 2: Non-overlapping, current interval is completely after new interval
+            else if(intervals[i][0]> newInterval[1]) {
+                mergedInterval.add(newInterval);
+                newInterval= intervals[i];
+            }
+            // Case 3: Overlapping
+            else {
+                newInterval[0]= Math.min(newInterval[0],intervals[i][0]);
+                newInterval[1]= Math.max(newInterval[1], intervals[i][1]);
+            }
+        }
+
+        mergedInterval.add(newInterval);
+        return mergedInterval.toArray(new int[mergedInterval.size()][]);
+
+
+
+    }
+
+    public int[][] insertUsingWhile(int[][] intervals, int[] newInterval) {
+        List<int []> mergedInterval= new ArrayList<>();
         int i=0;
 
         // Add element before new interval
@@ -25,7 +52,6 @@ public class InsertIntervals {
             i++;
         }
         mergedInterval.add(new int[]{mergedStart, mergedEnd});
-
         // Add the remaining intervals
         while (i< intervals.length){
             mergedInterval.add(intervals[i]);
@@ -33,9 +59,6 @@ public class InsertIntervals {
         }
         // return
         return mergedInterval.toArray(new int[mergedInterval.size()][]);
-
-
-
     }
 
     public static void main(String[] args) {
