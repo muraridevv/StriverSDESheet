@@ -6,19 +6,19 @@ import java.util.Map;
 //  https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
 public class LengthOfLongestSubstring {
     public static int lengthOfLongestSubstring(String s) {
-        Map<Character,Integer> map=new HashMap<>();
-        int left=0,right=0;
-        int n=s.length();
-        int len=0;
-        while (right<n){
-            if(map.containsKey(s.charAt(right)))
-                left=Math.max(map.get(s.charAt(right))+1,left);
-
+        Map<Character,Integer> map= new HashMap<>();
+        int left=0;
+        int right=0;
+        int maxSize=0;
+        while(right<s.length()){
+            if(map.containsKey(s.charAt(right))){
+                left= Math.max(left,map.get(s.charAt(right))+1);
+            }
             map.put(s.charAt(right),right);
-            len=Math.max(len,right-left+1);
+            maxSize= Math.max(maxSize, right-left+1);
             right++;
         }
-        return len;
+        return maxSize;
     }
 
     public static void main(String[] args) {
