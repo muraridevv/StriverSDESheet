@@ -20,6 +20,6 @@ public class FindDuplicate {
 
     public static void main(String[] args) {
         int [] arr=new int[]{2,5,9,6,0,3,8,4,7,1};
-        findDuplicate(arr);
+        System.out.println(findDuplicate(arr));
     }
 }

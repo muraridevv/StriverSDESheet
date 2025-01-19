@@ -8,21 +8,18 @@ public class SortColors {
         int high=nums.length-1;
         int mid=0;
         while(mid<=high){
-            switch (nums[mid]){
-                case 0:{
-                    swap(nums,mid,low);
+            switch (nums[mid]) {
+                case 0 -> {
+                    swap(nums, mid, low);
                     low++;
                     mid++;
-                    break;
                 }
-                case 1:{
+                case 1 -> {
                     mid++;
-                    break;
                 }
-                case 2:{
-                    swap(nums,mid,high);
+                case 2 -> {
+                    swap(nums, mid, high);
                     high--;
-                    break;
                 }
             }
         }

@@ -118,25 +118,25 @@ public class PracticeStreamsOnStudents {
     //    12- Find the average rank in all departments
     @Test
     public void check_averageRankInAllDepartment_thenCorrect(){
-        Map<String, Double> departmentMap= studentList.stream()
-                        .collect(Collectors.groupingBy(Student::getDepartmentName,Collectors.averagingInt(Student::getRank)));
+        Map<String, Double> departmentMap = studentList.stream().collect(Collectors.groupingBy(Student::getDepartmentName, Collectors.averagingDouble(Student::getRank)));
         Assertions.assertEquals(5,departmentMap.size());
     }
 
     //    13- Find the highest rank in each department
     @Test
     public void check_HighestRankInAllDepartment_thenCorrect(){
-        Map<String, Optional<Student>> departmentMap= studentList.stream()
-                .collect(Collectors.groupingBy(Student::getDepartmentName,Collectors.minBy(Comparator.comparing(Student::getRank))));
+        Map<String, Optional<Student>> departmentMap = studentList
+                .stream()
+                .collect(Collectors.groupingBy(Student::getDepartmentName, Collectors.maxBy(Comparator.comparing(Student::getRank))));
         Assertions.assertEquals(5,departmentMap.size());
     }
 
     //    14- Find the list of students and sort them by their rank
     @Test
     public void check_sortByRank_thenCorrect(){
-        List<Student> rankSortedList= studentList.stream()
-                        .sorted(Comparator.comparing(Student::getRank))
-                        .toList();
+        List<Student> rankSortedList = studentList.stream()
+                .sorted(Comparator.comparing(Student::getRank))
+                .toList();
         Assertions.assertEquals(5,rankSortedList.size());
     }
 
@@ -154,26 +154,25 @@ public class PracticeStreamsOnStudents {
     //    16. Find the Youngest Male Student from Each Department
     @Test
     public void check_youngestMaleForEachDepartment_thenCorrect(){
-        Map<String,Optional<Student>> youngestMaleByDepartment= studentList.stream()
-                        .filter(student -> student.getGender().equalsIgnoreCase("male"))
-                                .collect(Collectors.groupingBy(Student::getDepartmentName,Collectors.minBy(Comparator.comparing(Student::getAge))));
+        Map<String, Optional<Student>> youngestMaleByDepartment = studentList.stream()
+                .filter(student -> student.getGender().equalsIgnoreCase("male"))
+                .collect(Collectors.groupingBy(Student::getDepartmentName, Collectors.minBy(Comparator.comparing(Student::getAge))));
 
         Assertions.assertTrue(youngestMaleByDepartment.containsKey("Computer Engineering"));
         Assertions.assertEquals("Nam", youngestMaleByDepartment.get("Computer Engineering").get().getFirstName());
-        Assertions.assertEquals(27, youngestMaleByDepartment.get("Computer Engineering").get().getAge());
+        Assertions.assertEquals(31, youngestMaleByDepartment.get("Computer Engineering").get().getAge());
     }
 
     //    17.  calculate the total rank points (sum of ranks) for students from each city.
     @Test
     public void calculateTotalRankPointsByCity_thenCorrect(){
-        Map<String,Integer> rankPointsMap= studentList.stream()
-                .collect(Collectors.groupingBy(Student::getCity,Collectors.summingInt(Student::getRank)));
+        Map<String, Integer> rankPointsMap = studentList.stream().collect(Collectors.groupingBy(Student::getCity, Collectors.summingInt(Student::getRank)));
 
         Assertions.assertTrue(rankPointsMap.containsKey("Mumbai"));
         Assertions.assertEquals(232, rankPointsMap.get("Mumbai"));
     }
 
-    //    18. Determine if Any Student Has a Rank Higher Than 3
+    //    18. Determine if Any Student Has a Rank Higher Than 300
     @Test
     public void checkIfAnyStudentHasHighRank_thenCorrect() {
         boolean anyStudentWithHighRank= studentList.stream()

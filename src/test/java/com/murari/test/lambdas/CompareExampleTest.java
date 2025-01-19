@@ -42,7 +42,7 @@ public class CompareExampleTest {
         humans.add(new Human("Sarah", 10));
         humans.add(new Human("Jack", 12));
 
-        humans.sort((Human h1, Human h2)->h1.getName().compareTo(h2.getName()));
+        humans.sort((Human h1,Human h2)-> h1.getName().compareTo(h2.getName()));
         Assertions.assertEquals(new Human("Jack",12),humans.get(0));
     }
 
@@ -53,7 +53,7 @@ public class CompareExampleTest {
         humans.add(new Human("Sarah", 10));
         humans.add(new Human("Jack", 12));
 
-        humans.sort(( h1,  h2)->h1.getName().compareTo(h2.getName()));
+        humans.sort((h1,h2)-> h1.getName().compareTo(h2.getName()));
         Assertions.assertEquals(new Human("Jack",12),humans.get(0));
     }
 
@@ -202,10 +202,11 @@ public class CompareExampleTest {
     givenStreamComparatorOrdering_whenSortingEntitiesByNameReversed_thenCorrectlySorted() {
         List<Human> humans = Lists.newArrayList(new Human("Sarah", 10), new Human("Jack", 12));
 
-        List<Human> reverseSortedHumans = humans.stream()
-                .sorted(Comparator.comparing(Human::getName,Comparator.reverseOrder()))
-                .collect(Collectors.toList());
+       List<Human> reverseSortedHumans= humans.stream()
+               .sorted(Comparator.comparing(Human::getName,Comparator.reverseOrder()))
+               .collect(Collectors.toList());
 
+               Assertions.assertEquals(reverseSortedHumans.get(0),new Human("Sarah", 10));
     }
 
     //13. Null Values
