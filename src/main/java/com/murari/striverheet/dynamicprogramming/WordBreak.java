@@ -7,6 +7,23 @@ import java.util.Set;
 
 public class WordBreak {
 
+    public boolean wordBreakRecursive(String s, List<String> wordDict) {
+        return canBreak(s, new HashSet<>(wordDict), 0);
+    }
+
+    private boolean canBreak(String s, Set<String> dict, int start) {
+        if (start == s.length()) return true;
+
+        for (int end = start + 1; end <= s.length(); end++) {
+            String word = s.substring(start, end);
+            if (dict.contains(word) && canBreak(s, dict, end)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public boolean wordBreak(String s, List<String> wordDict) {
         int n= s.length();
         Set<String> wordDictSet= new HashSet<>(wordDict);
