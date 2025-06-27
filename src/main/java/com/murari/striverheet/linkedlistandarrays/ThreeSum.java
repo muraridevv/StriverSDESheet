@@ -4,72 +4,72 @@ import java.util.*;
 
 public class ThreeSum {
 
-    public static void main(String[] args) {
-        int[] nums = {-1, 0, 1, 2, -1, -4};
+  public static void main(String[] args) {
+    int[] nums = {-1, 0, 1, 2, -1, -4};
 
-        List<List<Integer>> triplets = findTripletsTwoPointers(nums);
+    List<List<Integer>> triplets = findTripletsTwoPointers(nums);
 
-        // Printing the triplets
-        System.out.println("Triplets with sum 0:");
-        for (List<Integer> triplet : triplets) {
-            System.out.println(triplet);
+    // Printing the triplets
+    System.out.println("Triplets with sum 0:");
+    for (List<Integer> triplet : triplets) {
+      System.out.println(triplet);
+    }
+  }
+
+  public static List<List<Integer>> findTriplets(int[] nums) {
+    Set<List<Integer>> tripletSet = new HashSet<>();
+    int n = nums.length;
+
+    // Sort the array to handle duplicates efficiently
+    Arrays.sort(nums);
+
+    // Check all possible triplets
+    for (int i = 0; i < n; i++) {
+      Set<Integer> hashSet = new HashSet<>();
+      for (int j = i + 1; j < n; j++) {
+        // Calculate the third element
+        int third = -(nums[i] + nums[j]);
+
+        // Find the element in hashSet
+        if (hashSet.contains(third)) {
+          // Found a triplet with sum 0
+          List<Integer> temp = Arrays.asList(nums[i], nums[j], third);
+          Collections.sort(temp); // Sort the triplet to handle duplicates
+          temp.sort(Integer::compareTo);
+          tripletSet.add(temp);
         }
+        hashSet.add(nums[j]);
+      }
     }
 
-    public static List<List<Integer>> findTriplets(int[] nums) {
-        Set<List<Integer>> tripletSet = new HashSet<>();
-        int n = nums.length;
+    // Convert set to list and return
+    return new ArrayList<>(tripletSet);
+  }
 
-        // Sort the array to handle duplicates efficiently
-        Arrays.sort(nums);
+  public static List<List<Integer>> findTripletsTwoPointers(int[] nums) {
+    Set<List<Integer>> result = new HashSet<>();
+    Arrays.sort(nums);
+    for (int i = 0; i < nums.length; i++) {
+      int j = i + 1;
+      int k = nums.length - 1;
 
-        // Check all possible triplets
-        for (int i = 0; i < n; i++) {
-            Set<Integer> hashSet = new HashSet<>();
-            for (int j = i + 1; j < n; j++) {
-                // Calculate the third element
-                int third = -(nums[i] + nums[j]);
+      while (j < k) {
+        int sum = nums[i] + nums[j] + nums[k];
 
-                // Find the element in hashSet
-                if (hashSet.contains(third)) {
-                    // Found a triplet with sum 0
-                    List<Integer> temp = Arrays.asList(nums[i], nums[j], third);
-                    Collections.sort(temp); // Sort the triplet to handle duplicates
-                    temp.sort(Integer::compareTo);
-                    tripletSet.add(temp);
-                }
-                hashSet.add(nums[j]);
-            }
+        if (sum > 0) {
+          k--;
+        } else if (sum < 0) {
+          j++;
+        } else {
+          List<Integer> tempResult = Arrays.asList(nums[i], nums[j], nums[k]);
+          result.add(tempResult);
+          j++;
         }
-
-        // Convert set to list and return
-        return new ArrayList<>(tripletSet);
+      }
     }
 
-    public static List<List<Integer>> findTripletsTwoPointers(int[] nums) {
-        Set<List<Integer>> result= new HashSet<>();
-        Arrays.sort(nums);
-        for(int i=0; i<nums.length; i++){
-            int j= i+1;
-            int k= nums.length-1;
-
-            while( j< k){
-                int sum= nums[i]+ nums[j]+ nums[k];
-
-                if(sum>0){
-                    k--;
-                } else if (sum<0){
-                    j++;
-                } else {
-                    List<Integer> tempResult= Arrays.asList(nums[i], nums[j], nums[k]);
-                    result.add(tempResult);
-                    j++;
-                }
-            }
-        }
-
-        return new ArrayList<>(result);
-    }
+    return new ArrayList<>(result);
+  }
 }
 
 /*

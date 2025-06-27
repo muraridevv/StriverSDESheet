@@ -2,16 +2,17 @@ package com.murari.striverheet.binarytreemisc;
 
 public class FlattenBinaryTree {
 
-    TreeNode prev=null;
-    public void flatten(TreeNode root) {
+  TreeNode prev = null;
 
-        if(root==null) return;
+  public void flatten(TreeNode root) {
 
-        flatten(root.right);
-        flatten(root.left);
+    if (root == null) return;
 
-        root.right=prev;
-        root.left=null;
-        prev=root;
-    }
+    flatten(root.right);
+    flatten(root.left);
+
+    root.right = prev;
+    root.left = null;
+    prev = root;
+  }
 }

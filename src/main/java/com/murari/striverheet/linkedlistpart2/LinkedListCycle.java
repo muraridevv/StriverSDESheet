@@ -4,35 +4,33 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class LinkedListCycle {
-    public boolean hasCycle(ListNode head) {
-        Set<ListNode> nodeSet= new HashSet<>();
+  public boolean hasCycle(ListNode head) {
+    Set<ListNode> nodeSet = new HashSet<>();
 
-        while (head!=null){
-            if(nodeSet.contains(head)){
-                return true;
-            }
-            nodeSet.add(head);
-            head=head.next;
-        }
-
-        return false;
+    while (head != null) {
+      if (nodeSet.contains(head)) {
+        return true;
+      }
+      nodeSet.add(head);
+      head = head.next;
     }
 
-    public boolean hasCycleOptimized(ListNode head) {
+    return false;
+  }
 
-        if(head==null || head.next==null)
-            return false;
-        ListNode slowNode= head;
-        ListNode fastNode= head.next;
+  public boolean hasCycleOptimized(ListNode head) {
 
-        while (fastNode!=null && fastNode.next!=null){
-            if(slowNode==fastNode)
-                return true;
+    if (head == null || head.next == null) return false;
+    ListNode slowNode = head;
+    ListNode fastNode = head.next;
 
-            slowNode=slowNode.next;
-            fastNode=fastNode.next.next;
-        }
+    while (fastNode != null && fastNode.next != null) {
+      if (slowNode == fastNode) return true;
 
-        return false;
+      slowNode = slowNode.next;
+      fastNode = fastNode.next.next;
     }
+
+    return false;
+  }
 }

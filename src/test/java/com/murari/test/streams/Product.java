@@ -5,39 +5,38 @@ import java.util.stream.Stream;
 
 public class Product {
 
-    private int price;
-    private String name;
-    private boolean utilize;
+  private int price;
+  private String name;
+  private boolean utilize;
 
-    public Product(int price, String name) {
-        this.price = price;
-        this.name = name;
-    }
+  public Product(int price, String name) {
+    this.price = price;
+    this.name = name;
+  }
 
-    public Product(int price) {
-        this.price = price;
-    }
+  public Product(int price) {
+    this.price = price;
+  }
 
-    public Product() {
-    }
+  public Product() {}
 
-    public int getPrice() {
-        return price;
-    }
+  public int getPrice() {
+    return price;
+  }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
+  public void setPrice(int price) {
+    this.price = price;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public static Stream<String> streamOf(List<String> list){
-        return (list==null || list.isEmpty()) ? Stream.empty() : list.stream();
-    }
+  public static Stream<String> streamOf(List<String> list) {
+    return (list == null || list.isEmpty()) ? Stream.empty() : list.stream();
+  }
 }

@@ -6,77 +6,76 @@ import java.util.List;
 //  https://leetcode.com/problems/insert-interval/
 public class InsertIntervals {
 
-    public int[][] insert(int[][] intervals, int[] newInterval) {
-        List<int[]> mergedInterval= new ArrayList<>();
+  public int[][] insert(int[][] intervals, int[] newInterval) {
+    List<int[]> mergedInterval = new ArrayList<>();
 
-        for(int[] interval: intervals){
-            //Case 1: interval completely smaller than new interval
-            if(interval[1]<newInterval[0])
-                mergedInterval.add(interval);
+    for (int[] interval : intervals) {
+      // Case 1: interval completely smaller than new interval
+      if (interval[1] < newInterval[0]) mergedInterval.add(interval);
 
-            //Case 2: interval completely greater than new interval
-            else if(interval[0]>newInterval[1]){
-                mergedInterval.add(newInterval);
-                newInterval= interval;
-            }
-
-            //Case 3: overlapping interval
-            else{
-                newInterval[0]= Math.min(newInterval[0],interval[0]);
-                newInterval[1]= Math.max(newInterval[1],interval[1]);
-            }
-        }
-
+      // Case 2: interval completely greater than new interval
+      else if (interval[0] > newInterval[1]) {
         mergedInterval.add(newInterval);
+        newInterval = interval;
+      }
 
-        return mergedInterval.toArray(new int[mergedInterval.size()][]);
+      // Case 3: overlapping interval
+      else {
+        newInterval[0] = Math.min(newInterval[0], interval[0]);
+        newInterval[1] = Math.max(newInterval[1], interval[1]);
+      }
     }
 
-    public int[][] insertUsingWhile(int[][] intervals, int[] newInterval) {
-        List<int []> mergedInterval= new ArrayList<>();
-        int i=0;
+    mergedInterval.add(newInterval);
 
-        // Add element before new interval
-        while(i< intervals.length && intervals[i][1]<newInterval[0]){
-            mergedInterval.add(intervals[i]);
-            i++;
-        }
+    return mergedInterval.toArray(new int[mergedInterval.size()][]);
+  }
 
-        // Add the merged interval
-        int mergedStart= newInterval[0];
-        int mergedEnd= newInterval[1];
-        while(i< intervals.length && intervals[i][0]<= newInterval[1]){
-            mergedStart= Math.min(mergedStart, intervals[i][0]);
-            mergedEnd= Math.max(mergedEnd, intervals[i][1]);
-            i++;
-        }
-        mergedInterval.add(new int[]{mergedStart, mergedEnd});
-        // Add the remaining intervals
-        while (i< intervals.length){
-            mergedInterval.add(intervals[i]);
-            i++;
-        }
-        // return
-        return mergedInterval.toArray(new int[mergedInterval.size()][]);
+  public int[][] insertUsingWhile(int[][] intervals, int[] newInterval) {
+    List<int[]> mergedInterval = new ArrayList<>();
+    int i = 0;
+
+    // Add element before new interval
+    while (i < intervals.length && intervals[i][1] < newInterval[0]) {
+      mergedInterval.add(intervals[i]);
+      i++;
     }
 
-    public static void main(String[] args) {
-        InsertIntervals solution= new InsertIntervals();
-        // Example 1
-        int[][] intervals1 = {{1, 3}, {6, 9}};
-        int[] newInterval1 = {2, 5};
-        int[][] result1 = solution.insert(intervals1, newInterval1);
-        for (int[] interval : result1) {
-            System.out.print("[" + interval[0] + ", " + interval[1] + "] ");
-        }
-        System.out.println();
-
-        // Example 2
-        int[][] intervals2 = {{1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}};
-        int[] newInterval2 = {4, 8};
-        int[][] result2 = solution.insert(intervals2, newInterval2);
-        for (int[] interval : result2) {
-            System.out.print("[" + interval[0] + ", " + interval[1] + "] ");
-        }
+    // Add the merged interval
+    int mergedStart = newInterval[0];
+    int mergedEnd = newInterval[1];
+    while (i < intervals.length && intervals[i][0] <= newInterval[1]) {
+      mergedStart = Math.min(mergedStart, intervals[i][0]);
+      mergedEnd = Math.max(mergedEnd, intervals[i][1]);
+      i++;
     }
+    mergedInterval.add(new int[] {mergedStart, mergedEnd});
+    // Add the remaining intervals
+    while (i < intervals.length) {
+      mergedInterval.add(intervals[i]);
+      i++;
+    }
+    // return
+    return mergedInterval.toArray(new int[mergedInterval.size()][]);
+  }
+
+  public static void main(String[] args) {
+    InsertIntervals solution = new InsertIntervals();
+    // Example 1
+    int[][] intervals1 = {{1, 3}, {6, 9}};
+    int[] newInterval1 = {2, 5};
+    int[][] result1 = solution.insert(intervals1, newInterval1);
+    for (int[] interval : result1) {
+      System.out.print("[" + interval[0] + ", " + interval[1] + "] ");
+    }
+    System.out.println();
+
+    // Example 2
+    int[][] intervals2 = {{1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}};
+    int[] newInterval2 = {4, 8};
+    int[][] result2 = solution.insert(intervals2, newInterval2);
+    for (int[] interval : result2) {
+      System.out.print("[" + interval[0] + ", " + interval[1] + "] ");
+    }
+  }
 }

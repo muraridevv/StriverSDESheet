@@ -2,38 +2,37 @@ package com.murari.striverheet.binarytree2;
 
 public class BalancedBinaryTree {
 
-    private boolean isBalanced;
-    public boolean isBalanced(TreeNode root) {
+  private boolean isBalanced;
 
-        return isBalancedHelper(root)!=-1;
-    }
+  public boolean isBalanced(TreeNode root) {
 
-    public int isBalancedHelper(TreeNode node){
-        if(node==null) return 0;
+    return isBalancedHelper(root) != -1;
+  }
 
-        int leftHeight= isBalancedHelper(node.left);
-        int rightHeight= isBalancedHelper(node.right);
+  public int isBalancedHelper(TreeNode node) {
+    if (node == null) return 0;
 
-        if(Math.abs(leftHeight-rightHeight)>1)
-            return -1;
+    int leftHeight = isBalancedHelper(node.left);
+    int rightHeight = isBalancedHelper(node.right);
 
-        return Math.max(leftHeight, rightHeight)+1;
-    }
+    if (Math.abs(leftHeight - rightHeight) > 1) return -1;
 
-    public static void main(String[] args) {
-        // Creating a sample binary tree
-        TreeNode root = new TreeNode(3);
-        root.left = new TreeNode(9);
-        root.right = new TreeNode(20);
-        root.right.left = new TreeNode(15);
-        root.right.right = new TreeNode(7);
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
 
-        // Calling the isBalanced method
-        BalancedBinaryTree balancedBinaryTree= new BalancedBinaryTree();
-        boolean  isBalanced = balancedBinaryTree.isBalanced(root);
+  public static void main(String[] args) {
+    // Creating a sample binary tree
+    TreeNode root = new TreeNode(3);
+    root.left = new TreeNode(9);
+    root.right = new TreeNode(20);
+    root.right.left = new TreeNode(15);
+    root.right.right = new TreeNode(7);
 
-        // Printing the level order traversal of the tree
-        System.out.println("Balanced Tree? : "+isBalanced);
+    // Calling the isBalanced method
+    BalancedBinaryTree balancedBinaryTree = new BalancedBinaryTree();
+    boolean isBalanced = balancedBinaryTree.isBalanced(root);
 
-    }
+    // Printing the level order traversal of the tree
+    System.out.println("Balanced Tree? : " + isBalanced);
+  }
 }

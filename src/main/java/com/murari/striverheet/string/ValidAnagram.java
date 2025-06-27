@@ -7,78 +7,74 @@ import java.util.Map;
 //  https://leetcode.com/problems/valid-anagram/
 public class ValidAnagram {
 
-    public boolean isAnagramUsingMap(String s, String t) {
-        if(s.length()!= t.length())
-            return false;
+  public boolean isAnagramUsingMap(String s, String t) {
+    if (s.length() != t.length()) return false;
 
-        Map<Character, Integer> freqMap= new HashMap<>();
-        for(Character ch: s.toCharArray()){
-            freqMap.put(ch, freqMap.getOrDefault(ch, 0)+1);
-        }
-
-        for(Character ch: t.toCharArray()){
-            freqMap.put(ch, freqMap.getOrDefault(ch, 0)-1);
-        }
-
-        for(Map.Entry<Character,Integer> entryMap: freqMap.entrySet()){
-            if(entryMap.getValue()<0) return false;
-        }
-        return true;
+    Map<Character, Integer> freqMap = new HashMap<>();
+    for (Character ch : s.toCharArray()) {
+      freqMap.put(ch, freqMap.getOrDefault(ch, 0) + 1);
     }
 
-    public boolean isAnagramUsingStringBuilder(String s, String t) {
-        if(s.length()!= t.length())
-            return false;
-
-        StringBuilder tBuilder= new StringBuilder(t);
-        for(Character ch: s.toCharArray()){
-            int tIndex= tBuilder.indexOf(ch.toString());
-            if(tIndex!=-1){
-                tBuilder.deleteCharAt(tIndex);
-            } else{
-                return false;
-            }
-        }
-        return true;
+    for (Character ch : t.toCharArray()) {
+      freqMap.put(ch, freqMap.getOrDefault(ch, 0) - 1);
     }
 
-    public boolean isAnagramUsingArray(String s, String t) {
-        if(s.length()!= t.length())
-            return false;
+    for (Map.Entry<Character, Integer> entryMap : freqMap.entrySet()) {
+      if (entryMap.getValue() < 0) return false;
+    }
+    return true;
+  }
 
-        int[] sFreqArr= new int[26];
-        int[] tFreqArr= new int[26];
+  public boolean isAnagramUsingStringBuilder(String s, String t) {
+    if (s.length() != t.length()) return false;
 
-        for(int i=0; i<s.length(); i++){
-            sFreqArr[s.charAt(i)-'a']++;
-            tFreqArr[t.charAt(i)-'a']++;
-        }
+    StringBuilder tBuilder = new StringBuilder(t);
+    for (Character ch : s.toCharArray()) {
+      int tIndex = tBuilder.indexOf(ch.toString());
+      if (tIndex != -1) {
+        tBuilder.deleteCharAt(tIndex);
+      } else {
+        return false;
+      }
+    }
+    return true;
+  }
 
-        return Arrays.equals(sFreqArr, tFreqArr);
+  public boolean isAnagramUsingArray(String s, String t) {
+    if (s.length() != t.length()) return false;
+
+    int[] sFreqArr = new int[26];
+    int[] tFreqArr = new int[26];
+
+    for (int i = 0; i < s.length(); i++) {
+      sFreqArr[s.charAt(i) - 'a']++;
+      tFreqArr[t.charAt(i) - 'a']++;
     }
 
-    public boolean isAnagram(String s, String t) {
-        if(s.length()!= t.length())
-            return false;
+    return Arrays.equals(sFreqArr, tFreqArr);
+  }
 
-        char[] sCharArr= s.toCharArray();
-        char[] tCharArr= t.toCharArray();
+  public boolean isAnagram(String s, String t) {
+    if (s.length() != t.length()) return false;
 
-        Arrays.sort(sCharArr);
-        Arrays.sort(tCharArr);
+    char[] sCharArr = s.toCharArray();
+    char[] tCharArr = t.toCharArray();
 
-        for(int i=0; i< s.length(); i++){
-            if(sCharArr[i]!=tCharArr[i]) return false;
-        }
-        return true;
+    Arrays.sort(sCharArr);
+    Arrays.sort(tCharArr);
+
+    for (int i = 0; i < s.length(); i++) {
+      if (sCharArr[i] != tCharArr[i]) return false;
     }
+    return true;
+  }
 
-    public static void main(String[] args) {
-        ValidAnagram solution= new ValidAnagram();
-        String s1="anagram", t1="nagaram";
-        System.out.println("Both string are anagram? : "+solution.isAnagram(s1,t1));
+  public static void main(String[] args) {
+    ValidAnagram solution = new ValidAnagram();
+    String s1 = "anagram", t1 = "nagaram";
+    System.out.println("Both string are anagram? : " + solution.isAnagram(s1, t1));
 
-        String s2="rat", t2="car";
-        System.out.println("Both string are anagram? : "+solution.isAnagram(s2,t2));
-    }
+    String s2 = "rat", t2 = "car";
+    System.out.println("Both string are anagram? : " + solution.isAnagram(s2, t2));
+  }
 }
