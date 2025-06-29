@@ -14,7 +14,7 @@ public class LongestCommonSubsequence {
 
     // Case 1: If current character matches
     if (text1.charAt(i) == text2.charAt(j)) {
-      // Include the current character in the subsequenc and move to previous character
+      // Include the current character in the subsequence and move to previous character
       return 1 + lcs(text1, text2, i - 1, j - 1);
     } else {
       // Case 2: If current character doesn't match
@@ -51,7 +51,7 @@ public class LongestCommonSubsequence {
       for (int j = 1; j <= text2.length(); j++) {
         int temp = dp[j];
         if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
-          dp[j] = prev + 1; // character matches, increament it by 1.
+          dp[j] = prev + 1; // character matches, increment it by 1.
         } else {
           dp[j] = Math.max(dp[j], dp[j - 1]);
         }
