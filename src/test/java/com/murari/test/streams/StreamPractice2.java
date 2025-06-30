@@ -1,12 +1,13 @@
 package com.murari.test.streams;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -111,5 +112,37 @@ public class StreamPractice2 {
             "ghint", Arrays.asList("night", "thing"));
 
     Assertions.assertEquals(expected, anagrams, "Anagram grouping mismatch!");
+  }
+
+  @Test
+  public void testSingleFreq() {
+    List<String> names = Arrays.asList("murari", "amit", "deep", "murari", "amit", "java");
+    // count frequency
+    Map<String, Long> freqName =
+        names.stream().collect(Collectors.groupingBy(name -> name, Collectors.counting()));
+    // filter single freq
+    List<String> singleFreqList =
+        freqName.entrySet().stream()
+            .filter(entry -> entry.getValue() == 1)
+            .map(Map.Entry::getKey)
+            .toList();
+    Assertions.assertEquals(singleFreqList.size(), 2);
+  }
+
+  @Test
+  public void testSorting() {
+    List<Employee> employees =
+        Arrays.asList(
+            new Employee(101, "Murari", 50000),
+            new Employee(102, "Deep", 60000),
+            new Employee(103, "Amit", 50000));
+    List<Employee> sortedEmployees =
+        employees.stream()
+            .sorted(
+                Comparator.comparing(Employee::getSalary)
+                    .reversed()
+                    .thenComparing(Employee::getName))
+            .collect(Collectors.toList());
+    Assertions.assertEquals(sortedEmployees.get(1).getName(), "Amit");
   }
 }

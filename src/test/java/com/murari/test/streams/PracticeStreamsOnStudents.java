@@ -1,13 +1,14 @@
 package com.murari.test.streams;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -58,7 +59,7 @@ public class PracticeStreamsOnStudents {
 
   //    1- Find list of students whose first name starts with alphabet A
   @Test
-  public void check_firstNameStartsWithA_thenCorrect() {
+  public void check_firstNameStartsWithA_Correct() {
     List<Student> list =
         studentList.stream().filter(student -> student.getFirstName().startsWith("A")).toList();
     Assertions.assertEquals(2, list.size());
